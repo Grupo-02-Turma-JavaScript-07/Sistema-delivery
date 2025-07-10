@@ -2,6 +2,7 @@ import { Injectable, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CategoriaController } from '../../categoria/controllers/categoria.controller';
 import { CategoriaService } from '../../categoria/services/categoria.service';
+import { Produto } from '../entities/produto.entity';
 
 @Injectable()
 export class ProdutoService {
@@ -20,7 +21,7 @@ export class ProdutoService {
       }
     });
   }
-  async findById(id: number): promise<Produto> {
+  async findById(id: number): Promise<Produto> {
     const produto = await this.produtoRepository.findOne({
       where: {
         id,
@@ -50,7 +51,7 @@ export class ProdutoService {
   async create(produto: Produto): Promise<Produto> {
     if(produto.categoria) {
       const categoria = await this.categoriaService.findById(
-        produto.categoria.id;
+        produto.categoria.id
       );
       if(!categoria) {
         throw new HttpException('Categoria não encontrada', HttpStatus.NOT_FUND);
