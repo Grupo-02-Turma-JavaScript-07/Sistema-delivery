@@ -1,1 +1,3 @@
-export class Categoria {}
+export class Categoria {
+    produto: any;
+}
