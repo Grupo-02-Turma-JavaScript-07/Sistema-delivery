@@ -1,4 +1,3 @@
-import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
 import {
     Column,
@@ -32,7 +31,7 @@ export class Produto {
   @Column({ length: 255, nullable: true })
   foto: string;
 
-  @ManyToOne(() => Categoria, (categoria: Categoria) => categoria.produto, {
+  @ManyToOne(() => Categoria, (categoria) => categoria.produto, {
     onDelete: 'CASCADE',
   })
   categoria: Categoria;
