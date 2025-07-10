@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-export class Usuario {
-    produto: any;
-=======
 import { IsEmail, IsNotEmpty, MinLength } from "class-validator";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
@@ -33,5 +29,4 @@ export class Usuario {
      *  @OneToMany(() => Produto, (produto) => produto.usuario)
      *  produto: Produto[];
      */
->>>>>>> d170cf81b6a95982c00e53e2e737772cc50a4428
 }

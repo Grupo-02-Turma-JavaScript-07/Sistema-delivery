@@ -1,7 +1,8 @@
-import { Injectable, HttpException } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CategoriaController } from '../../categoria/controllers/categoria.controller';
+import { DeleteResult, ILike, Repository } from 'typeorm';
 import { CategoriaService } from '../../categoria/services/categoria.service';
+import { UsuarioService } from '../../usuario/services/usuario.service';
 import { Produto } from '../entities/produto.entity';
 
 @Injectable()
@@ -10,7 +11,7 @@ export class ProdutoService {
     @InjectRepository(Produto)
     private produtoRepository: Repository<Produto>,
     private readonly categoriaService: CategoriaService,
-    private readonly categoriaController: CategoriaController,
+    private readonly usuarioService: UsuarioService,
   ) {}
 
   async findAll(): Promise<Produto[]> {
