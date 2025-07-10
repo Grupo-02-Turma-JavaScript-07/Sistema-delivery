@@ -1,48 +1,44 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+    Column,
+    Entity,
+    ManyToOne,
+    PrimaryGeneratedColumn
+} from 'typeorm';
+import { Categoria } from '../../categoria/entities/categoria.entity';
 import { Usuario } from './../../usuario/entities/usuario.entity';
-import { Categoria } from "../../categoria/entities/categoria.entity";
 
-@Entity({ name: "tb_produto" })
+@Entity({ name: 'tb_produto' })
 export class Produto {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @ApiProperty()  
-    @PrimaryGeneratedColumn()    
-    id: number;
+  @IsNotEmpty()
+  @Column({ length: 100, nullable: false })
+  nome: string;
 
-    @ApiProperty()  
-    @IsNotEmpty()
-    @Column({ length: 100, nullable: false })
-    nome: string;
+  @IsNotEmpty()
+  @Column({ length: 1000, nullable: false })
+  descricao: string;
 
-    @ApiProperty()  
-    @IsNotEmpty()
-    @Column({ length: 1000, nullable: false })
-    descricao: string;
+  @IsNotEmpty()
+  @Column('decimal', { precision: 10, scale: 2 })
+  preco: number;
 
-    @ApiProperty()
-    @IsNotEmpty()
-    @Column('decimal', { precision: 10, scale: 2 })
-    preco: number;
+  @Column({ type: 'boolean', default: true })
+  disponivel: boolean;
 
-    @ApiProperty({ default: true })
-    @Column({ type: 'boolean', default: true })
-    disponivel: boolean;
+  @Column({ length: 255, nullable: true })
+  foto: string;
 
-    @ApiProperty({ required: false })
-    @Column({ length: 255, nullable: true })
-    foto: string;
+  @ManyToOne(() => Categoria, (categoria: Categoria) => categoria.produto, {
+    onDelete: 'CASCADE',
+  })
+  categoria: Categoria;
 
-    @ApiProperty({ type: () => Categoria })
-    @ManyToOne(() => Categoria, (tema: Categoria) => tema.produto, {
-        onDelete: "CASCADE"
-    })
-    tema: Categoria;
-
-    @ApiProperty({ type: () => Usuario })
-    @ManyToOne(() => Usuario, (usuario) => usuario.produto, {
-        onDelete: "CASCADE"
-    })
-    usuario: Usuario;
+  @ManyToOne(() => Usuario, (usuario) => usuario.produto, {
+    onDelete: 'CASCADE',
+  })
+  usuario: Usuario;
 }
